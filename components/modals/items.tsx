@@ -13,6 +13,7 @@ interface ModalItemsProps {
 const ModalItems: FC<ModalItemsProps> = ({ isOpen, setIsOpen }) => {
     const [isMarketplace, setIsMarketplace] = useState<boolean>(false);
     const items = Array.from(Array(12).keys());
+
     return (
         <AnimatePresence>
             {isOpen && (

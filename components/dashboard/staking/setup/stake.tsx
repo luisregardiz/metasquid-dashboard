@@ -1,9 +1,16 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { useScrollBlock } from "../../../../hooks/useScrollBlock";
 import AlertDialog from "../../../modals/alert-dialog";
 interface SquidStakeProps {}
 
 const SquidStake: FC<SquidStakeProps> = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [blockScroll, allowScroll] = useScrollBlock();
+
+    useEffect(() => {
+        isOpen ? blockScroll() : allowScroll();
+    }, [allowScroll, blockScroll, isOpen]);
+
     return (
         <>
             <div className="bg-card p-8 space-y-10">

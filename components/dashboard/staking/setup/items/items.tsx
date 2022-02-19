@@ -1,5 +1,6 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { stakingItems } from "../../../../../helpers/stakingItems";
+import { useScrollBlock } from "../../../../../hooks/useScrollBlock";
 import ModalItems from "../../../../modals/items";
 import ItemsCard from "./card";
 
@@ -7,6 +8,11 @@ interface ItemsProps {}
 
 const Items: FC<ItemsProps> = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [blockScroll, allowScroll] = useScrollBlock();
+
+    useEffect(() => {
+        isOpen ? blockScroll() : allowScroll();
+    }, [allowScroll, blockScroll, isOpen]);
     return (
         <>
             <div className="bg-card p-8 ">

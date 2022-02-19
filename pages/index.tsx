@@ -5,10 +5,12 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import AccessModal from "../components/modals/access/access";
+import { useScrollBlock } from "../hooks/useScrollBlock";
 import TokenCards from "../public/assets/images/token-cards.svg";
 
 const Home: NextPage = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [blockScroll, allowScroll] = useScrollBlock();
     const { isAuthenticated } = useMoralis();
     const router = useRouter();
 
@@ -17,6 +19,10 @@ const Home: NextPage = () => {
             router.push("/dashboard");
         }
     }, [isAuthenticated, router]);
+
+    useEffect(() => {
+        isOpen ? blockScroll() : allowScroll();
+    }, [allowScroll, blockScroll, isOpen]);
     return (
         <>
             <Head>

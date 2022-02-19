@@ -1,10 +1,16 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { useScrollBlock } from "../../../hooks/useScrollBlock";
 import AlertDialog from "../../modals/alert-dialog";
 
 interface TokenRewardsProps {}
 
 const TokenRewards: FC<TokenRewardsProps> = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [blockScroll, allowScroll] = useScrollBlock();
+
+    useEffect(() => {
+        isOpen ? blockScroll() : allowScroll();
+    }, [allowScroll, blockScroll, isOpen]);
 
     const tokenRewards = [
         { name: "BUSD", value: 102.25 },
